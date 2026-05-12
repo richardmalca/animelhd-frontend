@@ -8,16 +8,6 @@ export async function GET(request: NextRequest) {
         return NextResponse.json({ data: [], message: 'Unauthorized' }, { status: 400 });
     }
 
-    const referer = request.headers.get('referer');
-    const allowedDomainsStr = process.env.ALLOWED_DOMAINS || 'localhost';
-    const allowedDomains = allowedDomainsStr.split(',');
-    
-    const isAllowed = allowedDomains.some(domain => referer?.includes(domain.trim()));
-
-    if (!isAllowed) {
-        return NextResponse.json({ data: [], message: 'Unauthorized' }, { status: 403 });
-    }
-
     const API_URL = process.env.API_URL;
     const API_KEY = process.env.API_KEY;
 
