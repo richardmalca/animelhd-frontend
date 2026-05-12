@@ -84,7 +84,7 @@ export function AnimeDetailClient({
                 <div className="relative z-20 -mt-32 lg:-mt-60">
                     <div className="flex flex-col gap-8 lg:flex-row lg:items-end">
                         <div className="hidden shrink-0 lg:block lg:w-56">
-                            <div className="relative aspect-[2/3] w-full overflow-hidden rounded-xl ring-2 ring-white/10 shadow-2xl">
+                            <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg ring-2 ring-white/10 shadow-2xl">
                                 <Image
                                     src={getTmdbImageUrl(anime.poster, 'w300')}
                                     alt={anime.name}

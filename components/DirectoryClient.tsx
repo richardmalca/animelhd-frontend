@@ -47,7 +47,7 @@ export function DirectoryClient({ initialAnimes }: DirectoryClientProps) {
 
     return (
         <div className="min-h-screen bg-background pt-20 pb-20">
-            <div className="w-full px-6 lg:px-10">
+            <div className="mx-auto max-w-[1600px] px-6 lg:px-10">
                 <LoadingOverlay isVisible={isPending} text="Buscando..." />
 
                 <SectionTitle title="LISTADO ANIMES" />
@@ -129,7 +129,7 @@ export function DirectoryClient({ initialAnimes }: DirectoryClientProps) {
                                 <AnimeCard
                                     key={anime.id}
                                     title={anime.name}
-                                    image={getTmdbImageUrl(anime.poster)}
+                                    image={getTmdbImageUrl(anime.poster, 'w300')}
                                     vote_average={anime.vote_average}
                                     slug={anime.slug}
                                     type={anime.type}

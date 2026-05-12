@@ -7,15 +7,19 @@ import { LoadingOverlay } from './LoadingOverlay';
 import { AnimeGrid } from './AnimeGrid';
 import { Pagination } from './Pagination';
 import { EmptyState } from './EmptyState';
-import { AnimeListItem } from './AnimeListItem';
+import { AnimeCard } from '../AnimeCard';
+import { getTmdbImageUrl } from '@/lib/tmdb';
 
 interface AnimeData {
     id: number;
     name: string;
     slug: string;
     poster: string;
+    vote_average: number;
+    type: string;
+    aired?: string;
     last_episode_number: number;
-    last_episode_at: string;
+    last_episode_at: string | null;
 }
 
 interface AnimeListingTemplateProps {
@@ -44,21 +48,28 @@ export function AnimeListingTemplate({
     const { navigatePage, isPending } = usePagination(baseUrl);
 
     return (
-        <div className="min-h-screen bg-background pt-24 pb-20">
-            <div className="mx-auto max-w-[1600px] px-4 md:px-8">
+        <div className="min-h-screen bg-background pt-20 pb-20">
+            <div className="mx-auto max-w-[1600px] px-6 lg:px-10">
                 <LoadingOverlay isVisible={isPending} />
 
                 <SectionHeader
                     title={title}
                     highlight={highlight}
-                    description={description}
                 />
 
                 {initialData.data.length > 0 ? (
                     <>
-                        <AnimeGrid>
+                        <AnimeGrid className="grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 2xl:grid-cols-7">
                             {initialData.data.map((anime) => (
-                                <AnimeListItem key={anime.id} anime={anime} />
+                                <AnimeCard 
+                                    key={anime.id} 
+                                    title={anime.name}
+                                    image={getTmdbImageUrl(anime.poster, 'w300')}
+                                    slug={anime.slug}
+                                    vote_average={anime.vote_average}
+                                    type={anime.type}
+                                    aired={anime.aired}
+                                />
                             ))}
                         </AnimeGrid>
 

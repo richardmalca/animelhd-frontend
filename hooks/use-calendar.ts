@@ -7,6 +7,7 @@ export interface CalendarAnime {
     name_alternative?: string;
     slug: string;
     poster: string;
+    banner: string;
     type: string;
     broadcast: string | number;
     broadcast_time?: string;
@@ -32,7 +33,7 @@ export function useCalendar(initialData: CalendarAnime[]) {
     const safeData = useMemo(() => Array.isArray(initialData) ? initialData : [], [initialData]);
 
     const days = useMemo(() => {
-        const dayNames = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+        const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
         const today = new Date();
         const todayIdx = today.getDay();
         const weekDays: CalendarDay[] = [];
@@ -41,9 +42,13 @@ export function useCalendar(initialData: CalendarAnime[]) {
             const currentDayIdx = (todayIdx + i) % 7;
             const dayNum = currentDayIdx === 0 ? 7 : currentDayIdx;
 
+            let displayName = dayNames[currentDayIdx];
+            if (i === 0) displayName = 'Hoy';
+            if (i === 1) displayName = 'Mañana';
+
             weekDays.push({
                 id: dayNum,
-                name: dayNames[currentDayIdx],
+                name: displayName,
                 isToday: i === 0,
                 animes: safeData.filter(
                     (anime) => Number(anime.broadcast) === dayNum,

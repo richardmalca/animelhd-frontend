@@ -45,6 +45,7 @@ export function AnimeBaseCard({
                 <img
                     src={image}
                     alt={title}
+                    loading="lazy"
                     className={cn(
                         'absolute inset-0 h-full w-full object-cover transition-transform',
                         imageClassName,

@@ -52,7 +52,7 @@ export default function HomeClient({ episodes, animes }: HomeClientProps) {
                 AnimeLHD - Ver Anime Online Gratis en HD
             </h1>
 
-            <div className="pt-32 w-full px-6 lg:px-10">
+            <div className="mx-auto max-w-[1600px] pt-32 px-6 lg:px-10">
                 {safeEpisodes.length > 0 && (
                     <section className="mb-16">
                         <SectionTitle
@@ -82,7 +82,7 @@ export default function HomeClient({ episodes, animes }: HomeClientProps) {
                                 <AnimeCard
                                     key={anime.id}
                                     title={anime.name}
-                                    image={getTmdbImageUrl(anime.poster)}
+                                    image={getTmdbImageUrl(anime.poster, 'w300')}
                                     vote_average={anime.vote_average}
                                     slug={anime.slug}
                                     type={anime.type}
