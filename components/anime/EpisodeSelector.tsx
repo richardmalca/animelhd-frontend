@@ -46,13 +46,14 @@ export function EpisodeSelector({
     handleSearchChange,
 }: EpisodeSelectorProps) {
     return (
-        <section id="episodes" className="mb-16">
-            <div className="mb-10 flex flex-col gap-4 border-b border-border pb-8 md:flex-row md:items-center md:justify-between">
+        <section id="episodes" className="mb-10">
+            <div className="mb-6 flex flex-col gap-4 border-b border-white/5 pb-6 md:flex-row md:items-center md:justify-between">
                 <div className="flex flex-col">
-                    <h2 className="text-2xl font-black tracking-tighter text-foreground">Episodios</h2>
-                    <p className="mt-1 text-[10px] font-bold tracking-[0.3em] text-muted-foreground uppercase">
-                        Lista de capítulos ({episodesCount})
-                    </p>
+                    <h2 className="text-base font-bold leading-[1.2857em] text-foreground uppercase tracking-normal">
+                        <span className="border-b-2 border-primary pb-1">
+                            LISTADO EPISODIOS
+                        </span>
+                    </h2>
                 </div>
 
                 <div className="flex items-center gap-4">

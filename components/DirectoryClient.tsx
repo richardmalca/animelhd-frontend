@@ -59,7 +59,7 @@ export function DirectoryClient({ initialAnimes }: DirectoryClientProps) {
                             <select
                                 value={searchParams.get('type') || ''}
                                 onChange={(e) => setFilter('type', e.target.value)}
-                                className="h-9 flex-1 rounded-md border border-white/10 bg-white/5 px-3 text-[11px] font-bold text-white outline-none transition-all focus:border-primary/50"
+                                className="h-9 w-full max-w-[110px] rounded-md border border-white/10 bg-white/5 px-3 text-[11px] font-bold text-white outline-none transition-all focus:border-primary/50 lg:max-w-none"
                             >
                                 <option value="" className="bg-[#181818]">Todos</option>
                                 {Object.entries(typeMapping).map(([key, label]) => (
@@ -73,7 +73,7 @@ export function DirectoryClient({ initialAnimes }: DirectoryClientProps) {
                             <select
                                 value={searchParams.get('status') || ''}
                                 onChange={(e) => setFilter('status', e.target.value)}
-                                className="h-9 flex-1 rounded-md border border-white/10 bg-white/5 px-3 text-[11px] font-bold text-white outline-none transition-all focus:border-primary/50"
+                                className="h-9 w-full max-w-[110px] rounded-md border border-white/10 bg-white/5 px-3 text-[11px] font-bold text-white outline-none transition-all focus:border-primary/50 lg:max-w-none"
                             >
                                 <option value="" className="bg-[#181818]">Todos</option>
                                 {Object.entries(statusMapping).map(([key, label]) => (
@@ -87,7 +87,7 @@ export function DirectoryClient({ initialAnimes }: DirectoryClientProps) {
                             <select
                                 value={searchParams.get('year') || ''}
                                 onChange={(e) => setFilter('year', e.target.value)}
-                                className="h-9 flex-1 rounded-md border border-white/10 bg-white/5 px-3 text-[11px] font-bold text-white outline-none transition-all focus:border-primary/50"
+                                className="h-9 w-full max-w-[110px] rounded-md border border-white/10 bg-white/5 px-3 text-[11px] font-bold text-white outline-none transition-all focus:border-primary/50 lg:max-w-none"
                             >
                                 <option value="" className="bg-[#181818]">Todos</option>
                                 {yearsList.map((year) => (
@@ -101,7 +101,7 @@ export function DirectoryClient({ initialAnimes }: DirectoryClientProps) {
                             <select
                                 value={searchParams.get('genre') || ''}
                                 onChange={(e) => setFilter('genre', e.target.value)}
-                                className="h-9 w-full max-w-[110px] rounded-md border border-white/10 bg-white/5 px-3 text-[11px] font-bold text-white outline-none transition-all focus:border-primary/50 sm:max-w-[140px]"
+                                className="h-9 w-full max-w-[110px] rounded-md border border-white/10 bg-white/5 px-3 text-[11px] font-bold text-white outline-none transition-all focus:border-primary/50 lg:max-w-none"
                             >
                                 <option value="" className="bg-[#181818]">Todos</option>
                                 {genresList.map((genre) => (
