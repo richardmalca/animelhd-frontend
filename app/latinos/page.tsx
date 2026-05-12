@@ -5,7 +5,8 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'Animes Latinos - Lista de Animes en Español Latino | AnimeLHD',
-    description: 'Explora nuestra colección de animes doblados al español latino. Disfruta de tus series favoritas con el mejor doblaje, calidad HD y actualizaciones constantes.',
+    description:
+        'Explora nuestra colección de animes doblados al español latino. Disfruta de tus series favoritas con el mejor doblaje, calidad HD y actualizaciones constantes.',
     alternates: {
         canonical: '/latinos',
     },
@@ -27,7 +28,6 @@ export default async function LatinosPage({
             highlight="Latinos"
             description="Catálogo exclusivo de series con doblaje al español latino oficial"
             baseUrl="/latinos"
-            categoryLabel="Doblaje Latino"
             emptyTitle="No hay animes latinos disponibles"
             emptyDescription="Vuelve pronto para ver las nuevas actualizaciones con doblaje oficial."
         />

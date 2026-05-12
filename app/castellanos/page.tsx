@@ -28,7 +28,6 @@ export default async function CastellanosPage({
             highlight="Castellanos"
             description="Catálogo exclusivo de series con doblaje al español de España oficial"
             baseUrl="/castellanos"
-            categoryLabel="Doblaje Castellano"
             emptyTitle="No hay animes castellanos disponibles"
             emptyDescription="Vuelve pronto para ver las nuevas actualizaciones con doblaje oficial."
         />
