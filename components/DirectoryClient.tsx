@@ -101,7 +101,7 @@ export function DirectoryClient({ initialAnimes }: DirectoryClientProps) {
                             <select
                                 value={searchParams.get('genre') || ''}
                                 onChange={(e) => setFilter('genre', e.target.value)}
-                                className="h-9 flex-1 rounded-md border border-white/10 bg-white/5 px-3 text-[11px] font-bold text-white outline-none transition-all focus:border-primary/50"
+                                className="h-9 w-full max-w-[110px] rounded-md border border-white/10 bg-white/5 px-3 text-[11px] font-bold text-white outline-none transition-all focus:border-primary/50 sm:max-w-[140px]"
                             >
                                 <option value="" className="bg-[#181818]">Todos</option>
                                 {genresList.map((genre) => (
