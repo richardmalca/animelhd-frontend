@@ -43,19 +43,13 @@ const safeFetch = async <T>(
         const response = await fetchWithSecurity(url, options);
 
         if (!response.ok) {
-            if (isServer) {
-                throw new Error(
-                    `API Error: ${response.status} ${response.statusText}`,
-                );
-            }
+            console.error(`API Error [${url}]: ${response.status} ${response.statusText}`);
             return defaultValue;
         }
 
         return await response.json();
     } catch (error) {
-        if (isServer) {
-            throw error;
-        }
+        console.error(`Fetch Error [${url}]:`, error);
         return defaultValue;
     }
 };

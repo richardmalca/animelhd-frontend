@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { Globe, Server, ChevronDown } from 'lucide-react';
 import { getLanguageLabel } from '@/lib/anime-utils';
 
@@ -45,9 +44,9 @@ export function PlayerControls({
                                 selectedLanguage === lang ? 'bg-primary text-primary-foreground shadow-md' : 'text-muted-foreground hover:bg-muted/50 hover:text-foreground'
                             }`}
                         >
-                            {lang.toLowerCase().includes('sub') && <Image src="/images/flags/jp.svg" width={16} height={10} className="h-auto rounded-[1px] object-cover" alt="JP" unoptimized />}
-                            {lang.toLowerCase().includes('lat') && <Image src="/images/flags/mx.svg" width={16} height={10} className="h-auto rounded-[1px] object-cover" alt="MX" unoptimized />}
-                            {(lang.toLowerCase().includes('cas') || lang.toLowerCase().includes('esp')) && <Image src="/images/flags/es.svg" width={16} height={10} className="h-auto rounded-[1px] object-cover" alt="ES" unoptimized />}
+                            {lang.toLowerCase().includes('sub') && <img src="/images/flags/jp.svg" className="h-[10px] w-4 rounded-[1px] object-cover" alt="JP" />}
+                            {lang.toLowerCase().includes('lat') && <img src="/images/flags/mx.svg" className="h-[10px] w-4 rounded-[1px] object-cover" alt="MX" />}
+                            {(lang.toLowerCase().includes('cas') || lang.toLowerCase().includes('esp')) && <img src="/images/flags/es.svg" className="h-[10px] w-4 rounded-[1px] object-cover" alt="ES" />}
 
                             {getLanguageLabel(lang)}
                         </button>

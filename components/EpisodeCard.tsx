@@ -55,12 +55,10 @@ export function EpisodeCard({ episode, priority = false }: EpisodeCardProps) {
                                     key={lang}
                                     className="relative h-3 w-4.5 overflow-hidden rounded-[2px] shadow-sm ring-1 ring-white/20"
                                 >
-                                    <Image
+                                    <img
                                         src={flagUrl}
                                         alt={lang}
-                                        fill
-                                        unoptimized
-                                        className="h-auto object-cover"
+                                        className="h-full w-full object-cover"
                                     />
                                 </div>
                             );
