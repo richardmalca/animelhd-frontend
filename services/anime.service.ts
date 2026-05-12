@@ -49,6 +49,9 @@ const safeFetch = async <T>(
 
         return await response.json();
     } catch (error) {
+        if (error instanceof Error && error.name === 'AbortError') {
+            return defaultValue;
+        }
         console.error(`Fetch Error [${url}]:`, error);
         return defaultValue;
     }

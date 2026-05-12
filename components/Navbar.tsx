@@ -27,8 +27,8 @@ export function Navbar() {
     const appApkUrl = process.env.NEXT_PUBLIC_APP_APK_URL || 'https://github.com/animelhd/kawaii-animes/raw/main/app-release.apk';
 
     return (
-        <nav className="fixed top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-xl">
-            <div className="mx-auto flex h-14 max-w-[1600px] items-center justify-between px-6 lg:px-10">
+        <nav className="fixed top-0 z-50 w-full border-b border-border bg-black">
+            <div className="flex h-14 w-full items-center justify-between px-6 lg:px-10">
                 <div className="flex items-center gap-10">
                     <Link href="/" className="flex items-center">
                         <span className="text-xl font-black tracking-tighter text-foreground">

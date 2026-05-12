@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { getTmdbImageUrl } from '@/lib/tmdb';
 import { Play } from 'lucide-react';
+import { formatRelativeTime } from '@/lib/date-utils';
 import { AnimeBaseCard } from './shared/AnimeBaseCard';
 
 interface EpisodeCardProps {
@@ -13,6 +14,7 @@ interface EpisodeCardProps {
         anime_image: string;
         anime_slug: string;
         languages: string[];
+        created_at?: string;
     };
     priority?: boolean;
 }
@@ -21,7 +23,7 @@ export function EpisodeCard({ episode, priority = false }: EpisodeCardProps) {
     return (
         <AnimeBaseCard
             title={episode.anime_title}
-            image={getTmdbImageUrl(episode.anime_image, 'w500')}
+            image={getTmdbImageUrl(episode.anime_image, 'w300')}
             href={`/ver/${episode.anime_slug}/${episode.number}`}
             priority={priority}
             aspectRatio="16/9"
@@ -35,8 +37,10 @@ export function EpisodeCard({ episode, priority = false }: EpisodeCardProps) {
                         </div>
                     </div>
 
-                    <div className="absolute top-3 right-3 flex items-center justify-center text-[12px] font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,1)]">
-                        EP {episode.number}
+                    <div className="absolute top-2 left-2 z-10 text-[0.65rem] font-bold text-white uppercase [text-shadow:1px_1px_1px_#000] transition-opacity duration-200 ease-out">
+                        {episode.created_at
+                            ? formatRelativeTime(episode.created_at)
+                            : 'RECIENTE'}
                     </div>
 
                     <div className="absolute bottom-3 left-3 flex gap-1.5">
@@ -67,10 +71,13 @@ export function EpisodeCard({ episode, priority = false }: EpisodeCardProps) {
                 </>
             }
             footer={
-                <div className="mt-4 px-1">
-                    <h3 className="line-clamp-2 h-10 text-[14px] font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
+                <div className="mt-2 flex items-center justify-between gap-2 px-1">
+                    <h3 className="truncate text-[13px] font-bold tracking-normal text-foreground/90 transition-colors group-hover:text-primary">
                         {episode.anime_title}
                     </h3>
+                    <span className="shrink-0 pl-2 text-[0.65rem] font-normal uppercase text-muted-foreground">
+                        EP. {episode.number}
+                    </span>
                 </div>
             }
         />

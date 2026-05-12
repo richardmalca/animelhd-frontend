@@ -46,17 +46,11 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 
 export default async function DirectoryPage({ searchParams }: PageProps) {
     const params = await searchParams;
-    const [initialAnimes, genres, years] = await Promise.all([
-        animeService.getAnimes(params),
-        animeService.getGenres(),
-        animeService.getYears(),
-    ]);
+    const initialAnimes = await animeService.getAnimes(params);
 
     return (
         <DirectoryClient
             initialAnimes={initialAnimes}
-            genres={genres}
-            years={years}
         />
     );
 }

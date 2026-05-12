@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-    const { hero, episodes, animes } = await animeService.getHomeData();
+    const { episodes, animes } = await animeService.getHomeData();
 
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
     const jsonLd = {
@@ -35,7 +35,7 @@ export default async function Home() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            <HomeClient hero={hero} episodes={episodes} animes={animes} />
+            <HomeClient episodes={episodes} animes={animes} />
         </>
     );
 }

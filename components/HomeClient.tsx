@@ -1,7 +1,5 @@
 'use client';
 
-import React from 'react';
-import { Hero } from '@/components/Hero';
 import { AnimeCard } from '@/components/AnimeCard';
 import { EpisodeCard } from '@/components/EpisodeCard';
 import { AnimeGrid } from '@/components/shared/AnimeGrid';
@@ -28,15 +26,14 @@ interface HomeEpisode {
 }
 
 interface HomeClientProps {
-    hero: HomeAnime | null;
     episodes: HomeEpisode[];
     animes: HomeAnime[];
 }
 
-export default function HomeClient({ hero, episodes, animes }: HomeClientProps) {
+export default function HomeClient({ episodes, animes }: HomeClientProps) {
     const safeEpisodes = Array.isArray(episodes) ? episodes : [];
     const safeAnimes = Array.isArray(animes) ? animes : [];
-    const hasData = safeEpisodes.length > 0 || safeAnimes.length > 0 || !!hero;
+    const hasData = safeEpisodes.length > 0 || safeAnimes.length > 0;
 
     if (!hasData) {
         return (
@@ -51,22 +48,22 @@ export default function HomeClient({ hero, episodes, animes }: HomeClientProps) 
 
     return (
         <div className="flex flex-col pb-20">
-            <h1 className="sr-only">AnimeLHD - Ver Anime Online Gratis en HD</h1>
-            {hero && <Hero anime={hero} />}
+            <h1 className="sr-only">
+                AnimeLHD - Ver Anime Online Gratis en HD
+            </h1>
 
-            <div className="mx-auto mt-12 w-full max-w-[1600px] px-6 lg:px-10">
+            <div className="pt-32 w-full px-6 lg:px-10">
                 {safeEpisodes.length > 0 && (
                     <section className="mb-16">
                         <SectionTitle
-                            title="Últimos Episodios"
-                            subtitle="Actualizaciones Recientes"
+                            title="Episodios Recientes"
                             href="/directorio"
                         />
                         <AnimeGrid className="grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 2xl:grid-cols-6">
                             {safeEpisodes.map((episode, index) => (
-                                <EpisodeCard 
-                                    key={episode.id} 
-                                    episode={episode} 
+                                <EpisodeCard
+                                    key={episode.id}
+                                    episode={episode}
                                     priority={index < 12}
                                 />
                             ))}
@@ -78,13 +75,10 @@ export default function HomeClient({ hero, episodes, animes }: HomeClientProps) 
                     <section>
                         <SectionTitle
                             title="Animes Agregados"
-                            subtitle="Explorar Novedades"
                             href="/directorio"
                         />
                         <AnimeGrid className="grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 2xl:grid-cols-7">
                             {safeAnimes.map((anime, index) => (
-
-
                                 <AnimeCard
                                     key={anime.id}
                                     title={anime.name}
@@ -92,14 +86,12 @@ export default function HomeClient({ hero, episodes, animes }: HomeClientProps) 
                                     vote_average={anime.vote_average}
                                     slug={anime.slug}
                                     type={anime.type}
-                                    priority={safeEpisodes.length === 0 && index < 12}
+                                    priority={
+                                        safeEpisodes.length === 0 && index < 12
+                                    }
                                 />
                             ))}
                         </AnimeGrid>
-
-
-
-
                     </section>
                 )}
             </div>
