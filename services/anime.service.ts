@@ -92,9 +92,13 @@ export const animeService = {
         }),
 
     getEpisodeDetail: (slug: string, number: string | number) =>
-        safeFetch(`${API_URL}/animes/${slug}/episodes/${number}`, null, {
-            next: { revalidate: 60 },
-        }),
+        safeFetch<{ anime: Anime } | null>(
+            `${API_URL}/animes/${slug}/episodes/${number}`,
+            null,
+            {
+                next: { revalidate: 60 },
+            },
+        ),
 
     getGenres: () =>
         safeFetch(`${API_URL}/genres`, [], { next: { revalidate: 86400 } }),

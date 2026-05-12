@@ -65,7 +65,7 @@ export default async function EpisodePage({ params }: Props) {
     const { anime } = data;
 
     const jsonLd = {
-        '@context': 'https://schema.org',
+        '@context': 'https://schema.org ',
         '@type': 'TVEpisode',
         name: `${anime.name} Episodio ${number}`,
         episodeNumber: number,
@@ -77,7 +77,6 @@ export default async function EpisodePage({ params }: Props) {
         image: getTmdbImageUrl(anime.banner || anime.poster, 'original'),
         description: `Ver el episodio ${number} de ${anime.name} online gratis en HD.`,
         url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/ver/${slug}/${number}`,
-
     };
 
     const headersList = await headers();
@@ -98,7 +97,7 @@ export default async function EpisodePage({ params }: Props) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <EpisodePlayerClient
-                data={data}
+                data={data as any}
                 isMobileDevice={isMobileDevice}
                 isBot={isBot}
             />
