@@ -13,14 +13,16 @@ interface PageProps {
 
 import { getTmdbImageUrl } from '@/lib/tmdb';
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+    params,
+}: PageProps): Promise<Metadata> {
     const { slug } = await params;
     const data = await animeService.getAnimeDetail(slug);
     if (!data) return { title: 'Anime no encontrado - AnimeLHD' };
 
     const { anime } = data;
     const title = `${anime.name} - Ver Online en HD | AnimeLHD`;
-    const description = anime.overview 
+    const description = anime.overview
         ? anime.overview.substring(0, 160) + '...'
         : `Información completa, episodios y más de ${anime.name} en AnimeLHD.`;
 
@@ -59,7 +61,7 @@ export default async function AnimePage({ params }: PageProps) {
     const { slug } = await params;
     const cookieStore = await cookies();
     const episodeOrder = cookieStore.get('episodeOrder')?.value || 'desc';
-    
+
     const data = await animeService.getAnimeDetail(slug);
 
     if (!data) {
@@ -77,13 +79,15 @@ export default async function AnimePage({ params }: PageProps) {
         url: `${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/anime/${anime.slug}`,
 
         genre: anime.genres?.split(',').filter(Boolean) || [],
-        aggregateRating: anime.vote_average ? {
-            '@type': 'AggregateRating',
-            ratingValue: anime.vote_average,
-            bestRating: '10',
-            worstRating: '1',
-            ratingCount: '100',
-        } : undefined,
+        aggregateRating: anime.vote_average
+            ? {
+                  '@type': 'AggregateRating',
+                  ratingValue: anime.vote_average,
+                  bestRating: '10',
+                  worstRating: '1',
+                  ratingCount: '100',
+              }
+            : undefined,
     };
 
     return (
@@ -92,7 +96,7 @@ export default async function AnimePage({ params }: PageProps) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            <AnimeDetailClient data={data} initialOrder={episodeOrder} />
+            <AnimeDetailClient data={data as any} initialOrder={episodeOrder} />
         </>
     );
 }

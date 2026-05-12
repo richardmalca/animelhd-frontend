@@ -1,3 +1,5 @@
+import { Anime } from '@/types/anime';
+
 const API_URL = process.env.API_URL;
 const SERVER_API_KEY = process.env.API_KEY;
 
@@ -42,7 +44,9 @@ const safeFetch = async <T>(
 
         if (!response.ok) {
             if (isServer) {
-                throw new Error(`API Error: ${response.status} ${response.statusText}`);
+                throw new Error(
+                    `API Error: ${response.status} ${response.statusText}`,
+                );
             }
             return defaultValue;
         }
@@ -56,11 +60,13 @@ const safeFetch = async <T>(
     }
 };
 
-
-
 export const animeService = {
-    getHomeData: () => 
-        safeFetch(`${API_URL}/home`, { hero: null, episodes: [], animes: [] }, { next: { revalidate: 3600 } }),
+    getHomeData: () =>
+        safeFetch(
+            `${API_URL}/home`,
+            { hero: null, episodes: [], animes: [] },
+            { next: { revalidate: 3600 } },
+        ),
 
     getAnimes: (filters: Filters = {}, signal?: AbortSignal) => {
         const params = new URLSearchParams();
@@ -76,21 +82,28 @@ export const animeService = {
         return safeFetch(
             `${API_URL}/animes?${params.toString()}`,
             { data: [], current_page: 1, last_page: 1 },
-            { next: { revalidate: 60 }, signal }
+            { next: { revalidate: 60 }, signal },
         );
     },
 
-    getAnimeDetail: (slug: string) => 
-        safeFetch(`${API_URL}/animes/${slug}`, null, { next: { revalidate: 60 } }),
+    getAnimeDetail: (slug: string) =>
+        safeFetch<{ anime: Anime } | null>(`${API_URL}/animes/${slug}`, null, {
+            next: { revalidate: 60 },
+        }),
 
-    getEpisodeDetail: (slug: string, number: string | number) => 
-        safeFetch(`${API_URL}/animes/${slug}/episodes/${number}`, null, { next: { revalidate: 60 } }),
+    getEpisodeDetail: (slug: string, number: string | number) =>
+        safeFetch(`${API_URL}/animes/${slug}/episodes/${number}`, null, {
+            next: { revalidate: 60 },
+        }),
 
-    getGenres: () => safeFetch(`${API_URL}/genres`, [], { next: { revalidate: 86400 } }),
+    getGenres: () =>
+        safeFetch(`${API_URL}/genres`, [], { next: { revalidate: 86400 } }),
 
-    getYears: () => safeFetch(`${API_URL}/years`, [], { next: { revalidate: 86400 } }),
+    getYears: () =>
+        safeFetch(`${API_URL}/years`, [], { next: { revalidate: 86400 } }),
 
-    getCalendar: () => safeFetch(`${API_URL}/calendar`, {}, { next: { revalidate: 3600 } }),
+    getCalendar: () =>
+        safeFetch(`${API_URL}/calendar`, {}, { next: { revalidate: 3600 } }),
 
     search: (query: string, signal?: AbortSignal) => {
         const isServer = typeof window === 'undefined';
@@ -100,9 +113,17 @@ export const animeService = {
         return safeFetch(url, { data: [] }, { signal });
     },
 
-    getLatinos: (page: number = 1) => 
-        safeFetch(`${API_URL}/latinos?page=${page}`, { data: [], current_page: 1, last_page: 1 }, { next: { revalidate: 3600 } }),
+    getLatinos: (page: number = 1) =>
+        safeFetch(
+            `${API_URL}/latinos?page=${page}`,
+            { data: [], current_page: 1, last_page: 1 },
+            { next: { revalidate: 3600 } },
+        ),
 
-    getCastellanos: (page: number = 1) => 
-        safeFetch(`${API_URL}/castellanos?page=${page}`, { data: [], current_page: 1, last_page: 1 }, { next: { revalidate: 3600 } }),
+    getCastellanos: (page: number = 1) =>
+        safeFetch(
+            `${API_URL}/castellanos?page=${page}`,
+            { data: [], current_page: 1, last_page: 1 },
+            { next: { revalidate: 3600 } },
+        ),
 };
