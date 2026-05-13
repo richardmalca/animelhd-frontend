@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import { getTmdbImageUrl } from '@/lib/tmdb';
 import { Play } from 'lucide-react';
 import { formatRelativeTime } from '@/lib/date-utils';

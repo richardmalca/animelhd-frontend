@@ -47,45 +47,55 @@ export function EpisodeSelector({
 }: EpisodeSelectorProps) {
     return (
         <section id="episodes" className="mb-10">
-            <div className="mb-6 flex flex-col gap-4 border-b border-white/5 pb-6 md:flex-row md:items-center md:justify-between">
+            <div className="mb-6 flex flex-col gap-6 border-b border-white/5 pb-6">
                 <div className="flex flex-col">
-                    <h2 className="text-base font-bold leading-[1.2857em] text-foreground uppercase tracking-normal">
+                    <h2 className="text-base font-bold text-foreground uppercase tracking-normal">
                         <span className="border-b-2 border-primary pb-1">
                             LISTADO EPISODIOS
                         </span>
                     </h2>
                 </div>
 
-                <div className="flex items-center gap-4">
-                    <div className="relative">
-                        <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <div className="flex w-full items-center gap-2">
+                    <div className="relative flex-1">
+                        <Search className="absolute top-1/2 left-3 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
                         <input
                             type="text"
                             placeholder="N°"
                             value={searchTerm}
                             onChange={handleSearchChange}
-                            className="w-28 rounded-lg bg-muted/50 py-2.5 pr-8 pl-10 text-[12px] text-foreground ring-1 ring-border transition-all outline-none focus:ring-primary/40"
+                            autoComplete="off"
+                            spellCheck={false}
+                            suppressHydrationWarning
+                            className="h-9 w-full rounded-md border border-white/10 bg-white/5 pl-9 pr-7 text-[11px] font-bold text-white transition-all outline-none focus:border-primary/50 sm:h-10 sm:text-sm"
                         />
                         {searchTerm && (
                             <button
                                 onClick={() => setSearchTerm('')}
-                                className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                                className="absolute top-1/2 right-2.5 -translate-y-1/2 text-muted-foreground/50 hover:text-white"
                             >
-                                <X className="h-4 w-4" />
+                                <X className="h-3.5 w-3.5" />
                             </button>
                         )}
                     </div>
                     <button
                         onClick={toggleOrder}
-                        className={`flex h-10 w-10 items-center justify-center rounded-lg transition-all ${isAsc ? 'bg-primary text-primary-foreground shadow-lg ring-2 shadow-primary/20 ring-primary/50' : 'bg-muted/50 text-muted-foreground ring-1 ring-border hover:bg-accent hover:text-foreground'}`}
+                        className={`flex h-9 w-9 items-center justify-center rounded-md transition-all sm:h-10 sm:w-10 ${
+                            isAsc
+                                ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20'
+                                : 'border border-white/10 bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-white'
+                        }`}
+                        title={isAsc ? 'Orden Ascendente' : 'Orden Descendente'}
                     >
-                        <ArrowUpDown className={`h-4 w-4 transition-transform duration-300 ${isAsc ? 'rotate-180' : ''}`} />
+                        <ArrowUpDown
+                            className={`h-4 w-4 transition-transform duration-300 ${isAsc ? 'rotate-180' : ''}`}
+                        />
                     </button>
                 </div>
             </div>
 
             {filteredEpisodes.length > 0 ? (
-                <EpisodeGrid 
+                <EpisodeGrid
                     episodes={chunkedEpisodes[activeChunk] || []}
                     animeSlug={animeSlug}
                     animeStatus={animeStatus}
@@ -96,10 +106,11 @@ export function EpisodeSelector({
                 <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border bg-muted/20 py-20">
                     <AlertCircle className="mb-4 h-12 w-12 text-muted-foreground" />
                     <p className="text-sm font-bold text-muted-foreground">
-                        No se encontró el episodio <span className="text-foreground">{searchTerm}</span>
+                        No se encontró el episodio{' '}
+                        <span className="text-foreground">{searchTerm}</span>
                     </p>
-                    <button 
-                        onClick={() => setSearchTerm('')} 
+                    <button
+                        onClick={() => setSearchTerm('')}
                         className="mt-4 text-[10px] font-black tracking-[0.2em] text-primary uppercase transition-colors hover:text-foreground"
                     >
                         Ver todos los episodios
@@ -107,7 +118,7 @@ export function EpisodeSelector({
                 </div>
             )}
 
-            <EpisodePagination 
+            <EpisodePagination
                 activeChunk={activeChunk}
                 setActiveChunk={setActiveChunk}
                 pages={pages}

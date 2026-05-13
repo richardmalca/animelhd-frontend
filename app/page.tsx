@@ -2,7 +2,7 @@ import { animeService } from '@/services/anime.service';
 import HomeClient from '@/components/HomeClient';
 import { Metadata } from 'next';
 
-export const revalidate = 3600;
+export const revalidate = 60;
 
 export const metadata: Metadata = {
     title: 'AnimeLHD - Ver Anime Online Gratis en HD',

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { cn } from '@/lib/utils';
 
 interface AnimeBaseCardProps {
@@ -51,7 +50,7 @@ export function AnimeBaseCard({
                         imageClassName,
                     )}
                 />
-                {/* Overlays */}
+                {}
                 {showOverlay && (
                     <>
                         <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/50 via-black/5 to-black/80" />

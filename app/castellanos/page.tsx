@@ -3,6 +3,8 @@ import { animeService } from '@/services/anime.service';
 import { AnimeListingTemplate } from '@/components/shared/AnimeListingTemplate';
 import { Metadata } from 'next';
 
+export const revalidate = 600;
+
 export const metadata: Metadata = {
     title: 'Animes Castellanos - Lista de Animes en Español España | AnimeLHD',
     description:

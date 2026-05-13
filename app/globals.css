@@ -44,6 +44,14 @@ body {
     color: var(--foreground);
     font-family: var(--font-roboto-condensed), sans-serif;
     overflow-x: hidden;
+    touch-action: manipulation;
+}
+
+/* Prevent auto-zoom on mobile inputs */
+@media screen and (max-width: 768px) {
+    input, select, textarea {
+        font-size: 16px !important;
+    }
 }
 
 @layer utilities {

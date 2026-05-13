@@ -78,9 +78,18 @@ export function useDirectory() {
         { label: 'Vampiros', slug: 'vampiros' },
     ];
 
+    
     useEffect(() => {
-        const currentSearch = searchParams.get('search') || '';
-        if (searchTerm === currentSearch) return;
+        const urlSearch = searchParams.get('search') || '';
+        if (urlSearch !== searchTerm) {
+            setSearchTerm(urlSearch);
+        }
+    }, [searchParams]);
+
+    
+    useEffect(() => {
+        const currentUrlSearch = searchParams.get('search') || '';
+        if (searchTerm === currentUrlSearch) return;
 
         const delayDebounceFn = setTimeout(() => {
             const params = new URLSearchParams(searchParams.toString());
@@ -94,7 +103,7 @@ export function useDirectory() {
         }, 500);
 
         return () => clearTimeout(delayDebounceFn);
-    }, [searchTerm, searchParams, router]);
+    }, [searchTerm, router]); 
 
     const toggleGenre = useCallback((slug: string) => {
         const params = new URLSearchParams(searchParams.toString());

@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { getTmdbImageUrl } from '@/lib/tmdb';
 import { getAnimeTypeStyles, getAnimeTypeLabel } from '@/lib/anime-utils';
 
@@ -30,13 +29,11 @@ export function AnimeBanner({ anime, getBroadcastDay }: AnimeBannerProps) {
         <div className="relative h-[40vh] w-full lg:h-[50vh]">
             <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-background/40 to-transparent" />
-                <Image
+                <img
                     src={getTmdbImageUrl(anime.banner || anime.poster, 'w1280')}
                     alt={anime.name}
-                    fill
-                    priority
-                    className="object-cover object-top opacity-30"
-                    sizes="100vw"
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover object-top opacity-30"
                 />
             </div>
         </div>

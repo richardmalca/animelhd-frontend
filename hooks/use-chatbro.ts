@@ -30,7 +30,7 @@ export function useChatbro(chatId: string = process.env.NEXT_PUBLIC_CHATBRO_ID |
             };
             
             const encodedParams = btoa(unescape(encodeURIComponent(JSON.stringify(params))));
-            xhr.open('GET', `https://www.chatbro.com/embed.js?${encodedParams}`, async);
+            xhr.open('GET', `https://www.chatbro.com/embed.js?${encodedParams}`);
             xhr.send();
         };
 

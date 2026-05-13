@@ -2,7 +2,8 @@ import { animeService } from '@/services/anime.service';
 import { EpisodePlayerClient } from '@/components/EpisodePlayerClient';
 import { EpisodeNotFound } from '@/components/EpisodeNotFound';
 import { Metadata } from 'next';
-import { headers } from 'next/headers';
+import { headers, cookies } from 'next/headers';
+import { getTmdbImageUrl } from '@/lib/tmdb';
 
 export const revalidate = 60;
 
@@ -12,8 +13,6 @@ interface Props {
         number: string;
     }>;
 }
-
-import { getTmdbImageUrl } from '@/lib/tmdb';
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug, number } = await params;
@@ -80,6 +79,8 @@ export default async function EpisodePage({ params }: Props) {
     };
 
     const headersList = await headers();
+    const cookieStore = await cookies();
+    
     const userAgent = (headersList.get('user-agent') || '').toLowerCase();
     const isMobileDevice =
         /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
@@ -89,6 +90,10 @@ export default async function EpisodePage({ params }: Props) {
         /bot|spider|crawl|slurp|googlebot|bingbot|yandexbot|duckduckbot|baiduspider|ia_archiver|facebookexternalhit|whatsapp|telegrambot/i.test(
             userAgent,
         );
+
+    
+    const preferredLanguage = cookieStore.get('preferred_language')?.value || '';
+    const preferredServer = cookieStore.get('preferred_server')?.value || '';
 
     return (
         <>
@@ -100,6 +105,8 @@ export default async function EpisodePage({ params }: Props) {
                 data={data as any}
                 isMobileDevice={isMobileDevice}
                 isBot={isBot}
+                preferredLanguage={preferredLanguage}
+                preferredServer={preferredServer}
             />
         </>
     );

@@ -1,11 +1,18 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono, Roboto_Condensed } from 'next/font/google';
+
+export const viewport: Viewport = {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+};
 import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { BottomBar } from '@/components/BottomBar';
 import { Chatbro } from '@/components/Chatbro';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
-
+import { ZoomLock } from '@/components/shared/ZoomLock';
 
 const geistSans = Geist({
     variable: '--font-geist-sans',
@@ -24,7 +31,9 @@ const robotoCondensed = Roboto_Condensed({
 });
 
 export const metadata: Metadata = {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
+    metadataBase: new URL(
+        process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+    ),
 
     title: {
         default: 'AnimeLHD - Tu portal de anime favorito',
@@ -96,8 +105,10 @@ export default async function RootLayout({
         <html
             lang="es"
             className={`${geistSans.variable} ${geistMono.variable} ${robotoCondensed.variable} antialiased`}
+            suppressHydrationWarning
         >
             <body>
+                <ZoomLock />
                 <Navbar />
                 <main className="min-h-screen">{children}</main>
                 <BottomBar />

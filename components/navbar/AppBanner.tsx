@@ -16,10 +16,16 @@ export function AppBanner({
     appWebOfficial,
     appApkUrl,
 }: AppBannerProps) {
+    const [isMounted, setIsMounted] = React.useState(false);
+
+    React.useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
     if (!isVisible) return null;
 
     return (
-        <div className="flex w-full items-center justify-between border-t border-primary/10 bg-primary/5 px-6 py-3 lg:px-10">
+        <div className="flex h-[58px] w-full items-center justify-between border-t border-primary/10 bg-primary/5 px-4 py-3 sm:px-6 lg:px-10 transition-opacity duration-300">
             <div className="flex items-center gap-4">
                 <Smartphone className="h-5 w-5 text-primary" />
                 <div className="flex flex-col">
@@ -27,24 +33,22 @@ export function AppBanner({
                         Kawaii Animes App
                     </span>
                     <span className="text-[11px] leading-tight font-normal tracking-wide text-muted-foreground uppercase">
-                        {isAndroid
-                            ? 'Disponible para Android'
-                            : 'Visita nuestra web oficial'}
+                        Sitio web oficial
                     </span>
                 </div>
             </div>
             <div className="flex items-center gap-2">
-                {isAndroid && (
+                {isMounted && isAndroid && (
                     <a
                         href={appApkUrl}
-                        className="flex h-8 items-center gap-2 rounded-md bg-primary px-5 text-[11px] font-bold tracking-widest text-primary-foreground uppercase transition-all hover:opacity-90"
+                        className="flex h-8 items-center gap-2 rounded-md bg-primary px-4 text-[10px] font-bold tracking-widest text-primary-foreground uppercase transition-all hover:opacity-90 sm:px-5 sm:text-[11px]"
                     >
-                        <Download className="h-4 w-4" /> Descargar
+                        <Download className="h-4 w-4" /> APK
                     </a>
                 )}
                 <a
                     href={appWebOfficial}
-                    className="flex h-8 items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-5 text-[11px] font-bold tracking-widest text-primary uppercase transition-all hover:bg-primary/10"
+                    className="flex h-8 items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-4 text-[10px] font-bold tracking-widest text-primary uppercase transition-all hover:bg-primary/10 sm:px-5 sm:text-[11px]"
                 >
                     <ExternalLink className="h-4 w-4" /> Web
                 </a>

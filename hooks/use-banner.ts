@@ -16,9 +16,7 @@ export function useBanner() {
             isIOS: /iphone|ipad|ipod/i.test(ua)
         };
         
-        Promise.resolve().then(() => {
-            setDeviceInfo(info);
-        });
+        setDeviceInfo(info);
     }, []);
 
 

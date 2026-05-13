@@ -3,7 +3,7 @@ import { animeService } from '@/services/anime.service';
 import { CalendarClient } from '@/components/CalendarClient';
 import { Metadata } from 'next';
 
-export const revalidate = 3600;
+export const revalidate = 300;
 
 export const metadata: Metadata = {
     title: 'Calendario de Estrenos Anime - Emisión Semanal | AnimeLHD',

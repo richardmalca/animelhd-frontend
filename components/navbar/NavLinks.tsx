@@ -23,10 +23,10 @@ export function NavLinks() {
                     <Link
                         key={link.href}
                         href={link.href}
-                        className={`relative text-[11px] font-black tracking-widest uppercase transition-all duration-300 ${
+                        className={`relative text-[13px] font-black tracking-widest uppercase transition-all duration-300 ${
                             isActive
                                 ? 'text-primary'
-                                : 'text-white/70 hover:text-white'
+                                : 'text-muted-foreground hover:text-white'
                         }`}
                     >
                         {link.name}

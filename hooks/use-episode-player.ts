@@ -19,6 +19,8 @@ interface UseEpisodePlayerProps {
     episodes: Episode[];
     currentEpisodeNumber: number | string;
     isMobileDevice: boolean;
+    preferredLanguage?: string;
+    preferredServer?: string;
 }
 
 export function useEpisodePlayer({
@@ -26,6 +28,8 @@ export function useEpisodePlayer({
     episodes,
     currentEpisodeNumber,
     isMobileDevice,
+    preferredLanguage,
+    preferredServer,
 }: UseEpisodePlayerProps) {
     const filteredPlayers = useMemo(() => {
         return players.filter((p) =>
@@ -55,31 +59,38 @@ export function useEpisodePlayer({
         );
     }, [groupedPlayers]);
 
-    const [selectedLanguage, setSelectedLanguage] = useState<string>('');
-    const [activePlayer, setActivePlayer] = useState<Player | null>(null);
+    
+    const initialLang = useMemo(() => {
+        if (preferredLanguage && languages.includes(preferredLanguage)) {
+            return preferredLanguage;
+        }
+        return languages.length > 0 ? languages[0] : '';
+    }, [languages, preferredLanguage]);
+
+    const initialPlayer = useMemo(() => {
+        const playersInLang = groupedPlayers[initialLang] || [];
+        if (playersInLang.length > 0) {
+            const preferredPlayer = playersInLang.find(p => p.server_name === preferredServer);
+            return preferredPlayer || playersInLang[0];
+        }
+        return null;
+    }, [groupedPlayers, initialLang, preferredServer]);
+
+    const [selectedLanguage, setSelectedLanguage] = useState<string>(initialLang);
+    const [activePlayer, setActivePlayer] = useState<Player | null>(initialPlayer);
     const [isSwitching, setIsSwitching] = useState(false);
     const [isServerDropdownOpen, setIsServerDropdownOpen] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const activeEpisodeRef = useRef<HTMLAnchorElement>(null);
 
-    useEffect(() => {
-        if (languages.length === 0) return;
+    
 
-        const lang = languages.includes(selectedLanguage) ? selectedLanguage : languages[0];
-        
-        Promise.resolve().then(() => {
-            if (lang !== selectedLanguage) {
-                setSelectedLanguage(lang);
-            }
-
-            if (!activePlayer || !languages.includes(selectedLanguage)) {
-                const firstPlayer = groupedPlayers[lang]?.[0] || null;
-                setActivePlayer(firstPlayer);
-            }
-        });
-    }, [languages, groupedPlayers, selectedLanguage, activePlayer]);
-
-
+    const setPreferenceCookie = (name: string, value: string) => {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + 365 * 24 * 60 * 60 * 1000); 
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax`;
+        localStorage.setItem(name, value); 
+    };
 
     const filteredEpisodes = useMemo(() => {
         if (!searchTerm) return episodes;
@@ -88,20 +99,37 @@ export function useEpisodePlayer({
         );
     }, [episodes, searchTerm]);
 
-    const handleServerChange = useCallback((player: Player) => {
-        if (player.id === activePlayer?.id) return;
-        setIsSwitching(true);
-        setActivePlayer(player);
-        setTimeout(() => setIsSwitching(false), 800);
-    }, [activePlayer]);
+    const handleServerChange = useCallback(
+        (player: Player) => {
+            if (player.id === activePlayer?.id) return;
+            setIsSwitching(true);
+            setActivePlayer(player);
+            
+            setPreferenceCookie('preferred_server', player.server_name);
+            
+            setTimeout(() => setIsSwitching(false), 300);
+        },
+        [activePlayer],
+    );
 
-    const handleLanguageChange = useCallback((lang: string) => {
-        if (lang === selectedLanguage) return;
-        setIsSwitching(true);
-        setSelectedLanguage(lang);
-        setActivePlayer(groupedPlayers[lang]?.[0] || null);
-        setTimeout(() => setIsSwitching(false), 800);
-    }, [selectedLanguage, groupedPlayers]);
+    const handleLanguageChange = useCallback(
+        (lang: string) => {
+            if (lang === selectedLanguage) return;
+            setIsSwitching(true);
+            setSelectedLanguage(lang);
+            
+            const savedServer = preferredServer || localStorage.getItem('preferred_server');
+            const playersInLang = groupedPlayers[lang] || [];
+            const preferredPlayer = playersInLang.find(p => p.server_name === savedServer);
+            
+            setActivePlayer(preferredPlayer || playersInLang[0] || null);
+            
+            setPreferenceCookie('preferred_language', lang);
+            
+            setTimeout(() => setIsSwitching(false), 300);
+        },
+        [selectedLanguage, groupedPlayers, preferredServer],
+    );
 
     useEffect(() => {
         if (activeEpisodeRef.current && !searchTerm) {
@@ -111,10 +139,10 @@ export function useEpisodePlayer({
                 const containerHeight = container.clientHeight;
                 const elementTop = element.offsetTop;
                 const elementHeight = element.clientHeight;
-                
+
                 container.scrollTo({
-                    top: elementTop - (containerHeight / 2) + (elementHeight / 2),
-                    behavior: 'smooth'
+                    top: elementTop - containerHeight / 2 + elementHeight / 2,
+                    behavior: 'smooth',
                 });
             }
         }
@@ -134,6 +162,6 @@ export function useEpisodePlayer({
         groupedPlayers,
         handleServerChange,
         handleLanguageChange,
-        filteredPlayers
+        filteredPlayers,
     };
 }

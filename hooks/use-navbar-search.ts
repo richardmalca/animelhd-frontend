@@ -38,17 +38,24 @@ export function useNavbarSearch() {
         const controller = new AbortController();
 
         const delayDebounceFn = setTimeout(async () => {
-            if (search.trim().length >= 3) {
-                setIsLoading(true);
+            const trimmedSearch = search.trim();
+            if (trimmedSearch.length > 0) {
                 setShowResults(true);
-                try {
-                    const data = await animeService.search(search.trim(), controller.signal);
-                    setResults(data.data || []);
-                } catch (error) {
-                    if (error instanceof Error && error.name !== 'AbortError') {
-                        console.error('Search error:', error);
+                
+                if (trimmedSearch.length >= 3) {
+                    setIsLoading(true);
+                    try {
+                        const data = await animeService.search(trimmedSearch, controller.signal);
+                        setResults(data.data || []);
+                    } catch (error) {
+                        if (error instanceof Error && error.name !== 'AbortError') {
+                            console.error('Search error:', error);
+                        }
+                    } finally {
+                        setIsLoading(false);
                     }
-                } finally {
+                } else {
+                    setResults([]);
                     setIsLoading(false);
                 }
             } else {

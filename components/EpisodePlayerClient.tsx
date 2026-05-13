@@ -2,10 +2,11 @@
 
 import React from 'react';
 import { useEpisodePlayer } from '@/hooks/use-episode-player';
-import { PlayerHeader } from './player/PlayerHeader';
-import { PlayerControls } from './player/PlayerControls';
-import { VideoDisplay } from './player/VideoDisplay';
-import { EpisodeSidebar } from './player/EpisodeSidebar';
+import { PlayerHeader } from '@/components/player/PlayerHeader';
+import { PlayerSourceSelector } from '@/components/player/PlayerSourceSelector';
+import { PlayerNavigation } from '@/components/player/PlayerNavigation';
+import { VideoDisplay } from '@/components/player/VideoDisplay';
+import { EpisodeSidebar } from '@/components/player/EpisodeSidebar';
 
 import { Anime, Episode, Player } from '@/types/anime';
 
@@ -20,12 +21,16 @@ interface EpisodePlayerClientProps {
     };
     isMobileDevice: boolean;
     isBot: boolean;
+    preferredLanguage?: string;
+    preferredServer?: string;
 }
 
 export function EpisodePlayerClient({
     data,
     isMobileDevice,
     isBot,
+    preferredLanguage,
+    preferredServer,
 }: EpisodePlayerClientProps) {
     const { anime, episode, players, next, prev, episodes } = data;
     const {
@@ -48,43 +53,43 @@ export function EpisodePlayerClient({
         episodes,
         currentEpisodeNumber: episode.number,
         isMobileDevice,
+        preferredLanguage,
+        preferredServer,
     });
 
     return (
         <div className="min-h-screen bg-background text-muted-foreground selection:bg-primary selection:text-primary-foreground">
-            <PlayerHeader 
-                anime={anime} 
-                episodeNumber={episode.number} 
-                prev={prev} 
-                next={next} 
-            />
-
-            <div className="mx-auto max-w-[1400px] px-4 pt-6 pb-28 md:px-6 md:py-8">
+            <div className="mx-auto px-6 pt-20 pb-28 lg:px-10">
                 <div className="grid grid-cols-1 gap-6 md:gap-10 lg:grid-cols-12">
                     <div className="lg:col-span-9">
-                        {filteredPlayers.length > 0 && (
-                            <PlayerControls 
-                                languages={languages}
-                                selectedLanguage={selectedLanguage}
-                                handleLanguageChange={handleLanguageChange}
-                                activePlayer={activePlayer}
-                                isServerDropdownOpen={isServerDropdownOpen}
-                                setIsServerDropdownOpen={setIsServerDropdownOpen}
-                                groupedPlayers={groupedPlayers}
-                                handleServerChange={handleServerChange}
-                            />
-                        )}
+                        <PlayerSourceSelector
+                            languages={languages}
+                            selectedLanguage={selectedLanguage}
+                            handleLanguageChange={handleLanguageChange}
+                            activePlayer={activePlayer}
+                            groupedPlayers={groupedPlayers}
+                            handleServerChange={handleServerChange}
+                        />
 
-                        <VideoDisplay 
+                        <VideoDisplay
                             activePlayer={activePlayer}
                             isSwitching={isSwitching}
                             isBot={isBot}
                             hasPlayers={filteredPlayers.length > 0}
                         />
+
+                        {filteredPlayers.length > 0 && (
+                            <PlayerNavigation
+                                anime={anime}
+                                episodeNumber={episode.number}
+                                prev={prev}
+                                next={next}
+                            />
+                        )}
                     </div>
 
-                    <div className="lg:col-span-3">
-                        <EpisodeSidebar 
+                    <div className="mt-8 md:mt-0 lg:col-span-3">
+                        <EpisodeSidebar
                             episodes={episodes}
                             currentEpisodeNumber={episode.number}
                             animeSlug={anime.slug}

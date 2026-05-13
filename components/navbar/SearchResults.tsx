@@ -35,29 +35,28 @@ export function SearchResults({
                                 key={anime.id}
                                 href={`/anime/${anime.slug}`}
                                 onClick={onResultClick}
-                                className="group flex items-center gap-3 rounded-xl p-2 transition-colors hover:bg-white/5"
+                                className="group flex items-center gap-4 rounded-xl p-3 transition-colors hover:bg-white/5"
                             >
-                                <div className="relative aspect-[2/3] h-12 overflow-hidden rounded-lg">
+                                <div className="relative aspect-[2/3] h-16 shrink-0 overflow-hidden rounded-lg">
                                     <Image
                                         src={getTmdbImageUrl(anime.poster, 'w154')}
-
                                         alt={anime.name}
                                         fill
                                         className="object-cover transition-transform duration-500 group-hover:scale-110"
-                                        sizes="48px"
+                                        sizes="64px"
                                     />
                                 </div>
-                                <div className="flex flex-1 flex-col gap-0.5">
-                                    <span className="line-clamp-1 text-[11px] font-black tracking-tight text-white transition-colors group-hover:text-primary">
+                                <div className="flex flex-1 flex-col gap-1">
+                                    <span className="line-clamp-2 text-[13px] font-black leading-tight tracking-tight text-white transition-colors group-hover:text-primary sm:text-[14px]">
                                         {anime.name}
                                     </span>
                                     <div className="flex items-center gap-2">
-                                        <span className="flex items-center gap-1 text-[9px] font-bold text-primary">
-                                            <Star className="h-2.5 w-2.5 fill-primary" />
+                                        <span className="flex items-center gap-1 text-[10px] font-bold text-primary">
+                                            <Star className="h-3 w-3 fill-primary" />
                                             {anime.vote_average.toFixed(1)}
                                         </span>
                                         <span
-                                            className={`rounded px-1.5 py-0.5 text-[8px] font-black uppercase tracking-widest ${getAnimeTypeStyles(
+                                            className={`rounded px-2 py-0.5 text-[9px] font-black uppercase tracking-widest ${getAnimeTypeStyles(
                                                 anime.type,
                                             )}`}
                                         >
@@ -79,8 +78,10 @@ export function SearchResults({
             ) : (
                 <div className="flex flex-col items-center justify-center py-10 text-center">
                     <Search className="mb-2 h-5 w-5 text-muted-foreground" />
-                    <p className="text-[10px] font-black tracking-widest text-white/30 uppercase">
-                        No se encontraron resultados
+                    <p className="text-[10px] font-black tracking-widest text-white/40 uppercase">
+                        {search.trim().length < 3 
+                            ? 'Mínimo 3 caracteres' 
+                            : 'No se encontraron resultados'}
                     </p>
                 </div>
             )}

@@ -37,8 +37,6 @@ const safeFetch = async <T>(
     defaultValue: T,
     options: RequestInit = {},
 ): Promise<T> => {
-    const isServer = typeof window === 'undefined';
-
     try {
         const response = await fetchWithSecurity(url, options);
 

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Star, Clock, Calendar } from 'lucide-react';
 import { useAnimeDetail } from '@/hooks/use-anime-detail';
 import { AnimeBanner } from './anime/AnimeBanner';
@@ -85,12 +84,11 @@ export function AnimeDetailClient({
                     <div className="flex flex-col gap-8 lg:flex-row lg:items-end">
                         <div className="hidden shrink-0 lg:block lg:w-56">
                             <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg ring-2 ring-white/10 shadow-2xl">
-                                <Image
+                                <img
                                     src={getTmdbImageUrl(anime.poster, 'w300')}
                                     alt={anime.name}
-                                    fill
-                                    className="object-cover"
-                                    sizes="(max-width: 1024px) 192px, 224px"
+                                    loading="lazy"
+                                    className="absolute inset-0 h-full w-full object-cover"
                                 />
                             </div>
                         </div>
