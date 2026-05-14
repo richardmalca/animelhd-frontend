@@ -8,6 +8,7 @@ import { PlayerNavigation } from '@/components/player/PlayerNavigation';
 import { VideoDisplay } from '@/components/player/VideoDisplay';
 import { EpisodeSidebar } from '@/components/player/EpisodeSidebar';
 
+import { Languages } from 'lucide-react';
 import { Anime, Episode, Player } from '@/types/anime';
 
 interface EpisodePlayerClientProps {
@@ -62,6 +63,46 @@ export function EpisodePlayerClient({
             <div className="mx-auto px-6 pt-20 pb-28 lg:px-10">
                 <div className="grid grid-cols-1 gap-6 md:gap-10 lg:grid-cols-12">
                     <div className="lg:col-span-9">
+                        {languages.some(l => l === '1' || l.toLowerCase().includes('lat')) && 
+                         languages.some(l => l === '2' || l.toLowerCase().includes('cas') || l.toLowerCase().includes('esp')) && (
+                            <div className="mb-6 flex flex-col gap-3 overflow-hidden rounded-xl bg-white/5 p-3 ring-1 ring-white/10 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between sm:p-4 sm:gap-6">
+                                <div className="flex items-center gap-3 sm:gap-4">
+                                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary shadow-inner sm:h-10 sm:w-10 sm:rounded-xl">
+                                        <Languages className="h-4 w-4 sm:h-5 sm:w-5" />
+                                    </div>
+                                    <div className="flex flex-col gap-0.5">
+                                        <div className="flex items-center gap-1.5 sm:gap-2">
+                                            <span className="text-[8px] font-black tracking-[0.2em] text-muted-foreground uppercase sm:text-[9px]">
+                                                Multilenguaje Detectado
+                                            </span>
+                                            <span className="h-1 w-1 rounded-full bg-primary animate-pulse" />
+                                        </div>
+                                        <span className="text-xs font-bold text-foreground sm:text-[13px]">
+                                            Este episodio cuenta con doblaje dual
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="flex flex-wrap items-center gap-1.5 sm:shrink-0 sm:gap-2">
+                                    <div className="flex items-center gap-2 rounded-lg bg-blue-500/10 px-2.5 py-1.5 ring-1 ring-blue-500/20 sm:px-3 sm:py-2 sm:gap-2.5">
+                                        <img 
+                                            src="https://flagcdn.com/mx.svg" 
+                                            alt="Latino" 
+                                            className="h-3 w-4 rounded-[1px] object-cover sm:h-3.5 sm:w-5"
+                                        />
+                                        <span className="text-[9px] font-black tracking-wider text-blue-400 uppercase sm:text-[10px]">Español Latino</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 rounded-lg bg-amber-500/10 px-2.5 py-1.5 ring-1 ring-amber-500/20 sm:px-3 sm:py-2 sm:gap-2.5">
+                                        <img 
+                                            src="https://flagcdn.com/es.svg" 
+                                            alt="Castellano" 
+                                            className="h-3 w-4 rounded-[1px] object-cover sm:h-3.5 sm:w-5"
+                                        />
+                                        <span className="text-[9px] font-black tracking-wider text-amber-400 uppercase sm:text-[10px]">Castellano</span>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         <PlayerSourceSelector
                             languages={languages}
                             selectedLanguage={selectedLanguage}

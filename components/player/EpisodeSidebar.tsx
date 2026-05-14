@@ -30,13 +30,17 @@ export function EpisodeSidebar({
 
     return (
         <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-4">
-                <div className="flex items-center justify-between px-1">
-                    <h2 className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase">Capítulos</h2>
+            <div className="flex flex-col">
+                <div className="mb-6 pb-2">
+                    <h2 className="text-sm font-bold text-foreground uppercase tracking-normal">
+                        <span className="border-b-2 border-primary pb-1">
+                            Capítulos
+                        </span>
+                    </h2>
                 </div>
 
                 <div className="relative">
-                    <Search className="absolute top-1/2 left-3 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground/50" />
+                    <Search className="absolute top-1/2 left-3 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
                     <input
                         type="text"
                         placeholder="Buscar capítulo..."
@@ -73,7 +77,7 @@ export function EpisodeSidebar({
                     </div>
                 ) : (
                     <div className="flex flex-col items-center justify-center py-10 text-center">
-                        <p className="text-[10px] font-black tracking-widest text-muted-foreground/40 uppercase">No se encontró el capítulo</p>
+                        <p className="text-[10px] font-black tracking-widest text-muted-foreground uppercase">No se encontró el capítulo</p>
                     </div>
                 )}
             </div>
