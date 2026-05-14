@@ -12,7 +12,6 @@ import { Navbar } from '@/components/Navbar';
 import { BottomBar } from '@/components/BottomBar';
 import { Chatbro } from '@/components/Chatbro';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
-import { Adcash } from '@/components/Adcash';
 import { ZoomLock } from '@/components/shared/ZoomLock';
 
 const geistSans = Geist({
@@ -115,7 +114,6 @@ export default async function RootLayout({
                 <BottomBar />
                 <Chatbro />
                 <GoogleAnalytics />
-                <Adcash />
             </body>
         </html>
     );

@@ -26,13 +26,15 @@ export function EpisodeSidebar({
     activeEpisodeRef,
 }: EpisodeSidebarProps) {
     const isLongSeries = episodes.length > 100;
-    const gridCols = isLongSeries ? 'grid-cols-6 sm:grid-cols-8' : 'grid-cols-4';
+    const gridCols = isLongSeries
+        ? 'grid-cols-6 sm:grid-cols-8'
+        : 'grid-cols-4';
 
     return (
         <div className="flex flex-col gap-6">
             <div className="flex flex-col">
                 <div className="mb-6 pb-2">
-                    <h2 className="text-sm font-bold text-foreground uppercase tracking-normal">
+                    <h2 className="text-sm font-bold tracking-normal text-foreground uppercase">
                         <span className="border-b-2 border-primary pb-1">
                             Capítulos
                         </span>
@@ -49,7 +51,7 @@ export function EpisodeSidebar({
                         autoComplete="off"
                         spellCheck={false}
                         suppressHydrationWarning
-                        className="h-9 w-full rounded-md border border-white/10 bg-white/5 pl-9 pr-3 text-[11px] font-bold text-white transition-all outline-none focus:border-primary/50 sm:h-10 sm:text-sm"
+                        className="h-9 w-full rounded-md border border-white/10 bg-white/5 pr-3 pl-9 text-[11px] font-bold text-white transition-all outline-none focus:border-primary/50 sm:h-10 sm:text-sm"
                     />
                 </div>
             </div>
@@ -58,22 +60,18 @@ export function EpisodeSidebar({
                 {filteredEpisodes.length > 0 ? (
                     <div className={`grid ${gridCols} gap-2`}>
                         {filteredEpisodes.map((ep) => {
-                            const isActive = Number(ep.number) === Number(currentEpisodeNumber);
-                            const enableAds = () => {
-                                if (typeof window !== 'undefined') {
-                                    sessionStorage.setItem('adcash_enabled', 'true');
-                                }
-                            };
+                            const isActive =
+                                Number(ep.number) ===
+                                Number(currentEpisodeNumber);
 
                             return (
                                 <Link
                                     key={ep.id}
                                     ref={isActive ? activeEpisodeRef : null}
                                     href={`/ver/${animeSlug}/${ep.number}`}
-                                    onClick={enableAds}
                                     className={`flex aspect-square items-center justify-center rounded-md border text-[13px] font-black transition-all ${
-                                        isActive 
-                                            ? 'border-primary/50 bg-primary/10 text-primary' 
+                                        isActive
+                                            ? 'border-primary/50 bg-primary/10 text-primary'
                                             : 'border-white/10 bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-white'
                                     }`}
                                 >
@@ -84,7 +82,9 @@ export function EpisodeSidebar({
                     </div>
                 ) : (
                     <div className="flex flex-col items-center justify-center py-10 text-center">
-                        <p className="text-[10px] font-black tracking-widest text-muted-foreground uppercase">No se encontró el capítulo</p>
+                        <p className="text-[10px] font-black tracking-widest text-muted-foreground uppercase">
+                            No se encontró el capítulo
+                        </p>
                     </div>
                 )}
             </div>
