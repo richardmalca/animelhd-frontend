@@ -1,18 +1,22 @@
+'use client';
+
 import React from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ArrowLeft, ShieldAlert, Heart, PlayCircle } from 'lucide-react';
 
 export default function AboutAdsPage() {
+    const router = useRouter();
+
     return (
         <main className="min-h-screen py-20">
             <div className="mx-auto max-w-5xl px-6">
-                <Link
-                    href="/"
+                <button
+                    onClick={() => router.back()}
                     className="group mb-12 inline-flex items-center gap-2 text-[10px] font-black tracking-widest text-muted-foreground uppercase transition-colors hover:text-primary"
                 >
                     <ArrowLeft className="h-3 w-3 transition-transform group-hover:-translate-x-1" />
-                    Volver al inicio
-                </Link>
+                    Volver atrás
+                </button>
 
                 <header className="mb-8">
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">

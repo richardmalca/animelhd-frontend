@@ -8,7 +8,7 @@ import { PlayerNavigation } from '@/components/player/PlayerNavigation';
 import { VideoDisplay } from '@/components/player/VideoDisplay';
 import { EpisodeSidebar } from '@/components/player/EpisodeSidebar';
 
-import { Languages, Info } from 'lucide-react';
+import { Languages } from 'lucide-react';
 import { useAdcash } from '@/hooks/use-adcash';
 import { Anime, Episode, Player } from '@/types/anime';
 import Link from 'next/link';
@@ -37,13 +37,25 @@ export function EpisodePlayerClient({
 }: EpisodePlayerClientProps) {
     const { anime, episode, players, next, prev, episodes } = data;
     const { runPop } = useAdcash();
+    const [isNoticeDismissed, setIsNoticeDismissed] = React.useState(false);
 
     React.useEffect(() => {
-        const timer = setTimeout(() => {
+        const dismissed = localStorage.getItem('ad_notice_dismissed') === 'true';
+        if (dismissed) setIsNoticeDismissed(true);
+    }, []);
+
+    const handleDismissNotice = () => {
+        localStorage.setItem('ad_notice_dismissed', 'true');
+        setIsNoticeDismissed(true);
+    };
+
+    const [hasTriggeredPop, setHasTriggeredPop] = React.useState(false);
+    const handlePlayerInteraction = () => {
+        if (!hasTriggeredPop) {
             runPop();
-        }, 500);
-        return () => clearTimeout(timer);
-    }, [runPop]);
+            setHasTriggeredPop(true);
+        }
+    };
 
     const {
         selectedLanguage,
@@ -135,27 +147,42 @@ export function EpisodePlayerClient({
                             handleServerChange={handleServerChange}
                         />
 
-                        <VideoDisplay
-                            activePlayer={activePlayer}
-                            isSwitching={isSwitching}
-                            isBot={isBot}
-                            hasPlayers={filteredPlayers.length > 0}
-                        />
-
-                        {filteredPlayers.length > 0 && (
-                            <div className="mt-4 flex flex-row items-center justify-between gap-4 rounded-lg border border-white/5 bg-white/5 px-4 py-2">
-                                <p className="text-[10px] font-medium text-muted-foreground sm:text-xs">
-                                    Anuncios en el reproductor externos a
-                                    nosotros.
+                        {filteredPlayers.length > 0 && !isNoticeDismissed && (
+                            <div className="flex flex-col items-center justify-between gap-3 rounded-t-lg border-x border-t border-white/5 bg-white/5 px-4 py-2 sm:flex-row sm:gap-4">
+                                <p className="text-xs font-medium text-muted-foreground sm:text-sm">
+                                    ¿Te salen anuncios en el reproductor?
                                 </p>
-                                <Link
-                                    href="/pages/about-ads"
-                                    className="shrink-0 text-[10px] font-bold tracking-tight text-primary uppercase hover:underline"
-                                >
-                                    Saber más
-                                </Link>
+                                <div className="flex items-center gap-4">
+                                    <Link 
+                                        href="/pages/about-ads"
+                                        className="text-[11px] font-black text-primary hover:underline uppercase tracking-tight sm:text-xs"
+                                    >
+                                        Saber más
+                                    </Link>
+                                    <button 
+                                        onClick={handleDismissNotice}
+                                        className="text-[11px] font-black text-muted-foreground/60 hover:text-white uppercase tracking-tight sm:text-xs"
+                                    >
+                                        No mostrar más
+                                    </button>
+                                </div>
                             </div>
                         )}
+
+                        <div 
+                            className="relative" 
+                            onMouseEnter={handlePlayerInteraction}
+                            onTouchStart={handlePlayerInteraction}
+                            onClick={handlePlayerInteraction}
+                        >
+                            <VideoDisplay
+                                activePlayer={activePlayer}
+                                isSwitching={isSwitching}
+                                isBot={isBot}
+                                hasPlayers={filteredPlayers.length > 0}
+                                className={!isNoticeDismissed ? "rounded-b-2xl rounded-t-none" : "rounded-2xl"}
+                            />
+                        </div>
 
                         {filteredPlayers.length > 0 && (
                             <PlayerNavigation

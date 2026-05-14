@@ -10,6 +10,7 @@ interface VideoDisplayProps {
     isSwitching: boolean;
     isBot: boolean;
     hasPlayers: boolean;
+    className?: string;
 }
 
 export function VideoDisplay({
@@ -17,9 +18,10 @@ export function VideoDisplay({
     isSwitching,
     isBot,
     hasPlayers,
+    className,
 }: VideoDisplayProps) {
     return (
-        <div className="relative aspect-video w-full overflow-hidden rounded-2xl bg-black shadow-lg ring-1 ring-white/5">
+        <div className={`relative aspect-video w-full overflow-hidden bg-black shadow-lg ring-1 ring-white/5 ${className || 'rounded-2xl'}`}>
             {activePlayer ? (
                 <>
                     {isSwitching && (
