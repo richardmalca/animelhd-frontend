@@ -21,6 +21,12 @@ export function PlayerNavigation({
 
     const disabled = 'pointer-events-none opacity-40';
 
+    const enableAds = () => {
+        if (typeof window !== 'undefined') {
+            sessionStorage.setItem('adcash_enabled', 'true');
+        }
+    };
+
     return (
         <div className="mt-8 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex items-center gap-4 border-b border-white/5 pb-6 lg:border-0 lg:pb-0">
@@ -49,6 +55,7 @@ export function PlayerNavigation({
                     href={prev ? `/ver/${anime.slug}/${prev}` : '#'}
                     className={`${navButton} ${!prev && disabled}`}
                     aria-disabled={!prev}
+                    onClick={enableAds}
                 >
                     <ChevronLeft className="h-4 w-4 shrink-0" />
                     <span className="truncate">Anterior</span>
@@ -66,6 +73,7 @@ export function PlayerNavigation({
                     href={next ? `/ver/${anime.slug}/${next}` : '#'}
                     className={`${navButton} ${!next && disabled}`}
                     aria-disabled={!next}
+                    onClick={enableAds}
                 >
                     <span className="truncate">Siguiente</span>
                     <ChevronRight className="h-4 w-4 shrink-0" />

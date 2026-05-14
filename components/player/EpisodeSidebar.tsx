@@ -54,16 +54,23 @@ export function EpisodeSidebar({
                 </div>
             </div>
 
-            <div className="scrollbar-thin relative max-h-[600px] overflow-y-auto pr-2">
+            <div className="relative pr-2">
                 {filteredEpisodes.length > 0 ? (
                     <div className={`grid ${gridCols} gap-2`}>
                         {filteredEpisodes.map((ep) => {
                             const isActive = Number(ep.number) === Number(currentEpisodeNumber);
+                            const enableAds = () => {
+                                if (typeof window !== 'undefined') {
+                                    sessionStorage.setItem('adcash_enabled', 'true');
+                                }
+                            };
+
                             return (
                                 <Link
                                     key={ep.id}
                                     ref={isActive ? activeEpisodeRef : null}
                                     href={`/ver/${animeSlug}/${ep.number}`}
+                                    onClick={enableAds}
                                     className={`flex aspect-square items-center justify-center rounded-md border text-[13px] font-black transition-all ${
                                         isActive 
                                             ? 'border-primary/50 bg-primary/10 text-primary' 
