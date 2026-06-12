@@ -67,12 +67,12 @@ export function Navbar() {
                 </div>
             </div>
 
-            <AppBanner 
+            {/*<AppBanner 
                 isVisible={isBannerVisible}
                 isAndroid={isAndroid}
                 appWebOfficial={appWebOfficial}
                 appApkUrl={appApkUrl}
-            />
+            />*/}
         </nav>
     );
 }
