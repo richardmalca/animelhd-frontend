@@ -7,7 +7,6 @@ import { useNavbarSearch } from '@/hooks/use-navbar-search';
 import { useBanner } from '@/hooks/use-banner';
 import { NavLinks } from '@/components/navbar/NavLinks';
 import { SearchResults } from '@/components/navbar/SearchResults';
-import { AppBanner } from '@/components/navbar/AppBanner';
 
 export function Navbar() {
     const {
@@ -20,11 +19,6 @@ export function Navbar() {
         handleSearchSubmit,
         handleResultClick,
     } = useNavbarSearch();
-
-    const { isVisible: isBannerVisible, isAndroid } = useBanner();
-
-    const appWebOfficial = process.env.NEXT_PUBLIC_APP_WEB_OFFICIAL || 'https://www.kawaiianimes.app/';
-    const appApkUrl = process.env.NEXT_PUBLIC_APP_APK_URL || 'https://github.com/animelhd/kawaii-animes/raw/main/app-release.apk';
 
     return (
         <nav className="fixed top-0 z-50 w-full border-b border-border bg-black">
@@ -66,13 +60,6 @@ export function Navbar() {
                     </div>
                 </div>
             </div>
-
-            {/*<AppBanner 
-                isVisible={isBannerVisible}
-                isAndroid={isAndroid}
-                appWebOfficial={appWebOfficial}
-                appApkUrl={appApkUrl}
-            />*/}
         </nav>
     );
 }
