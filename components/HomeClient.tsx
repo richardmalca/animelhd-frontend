@@ -52,7 +52,7 @@ export default function HomeClient({ episodes, animes }: HomeClientProps) {
                 AnimeLHD - Ver Anime Online Gratis en HD
             </h1>
 
-            <div className="mx-auto max-w-[1600px] pt-32 px-6 lg:px-10">
+            <div className="mx-auto max-w-[1600px] pt-20 px-6 lg:px-10">
                 {safeEpisodes.length > 0 && (
                     <section className="mb-16">
                         <SectionTitle
