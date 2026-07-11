@@ -60,7 +60,7 @@ export const animeService = {
         safeFetch(
             `${API_URL}/home`,
             { hero: null, episodes: [], animes: [] },
-            { next: { revalidate: 3600 } },
+            { next: { revalidate: 60 } },
         ),
 
     getAnimes: (filters: Filters = {}, signal?: AbortSignal) => {
@@ -102,7 +102,7 @@ export const animeService = {
         safeFetch(`${API_URL}/years`, [], { next: { revalidate: 86400 } }),
 
     getCalendar: () =>
-        safeFetch(`${API_URL}/calendar`, {}, { next: { revalidate: 3600 } }),
+        safeFetch(`${API_URL}/calendar`, {}, { next: { revalidate: 300 } }),
 
     search: (query: string, signal?: AbortSignal) => {
         const isServer = typeof window === 'undefined';
@@ -116,13 +116,13 @@ export const animeService = {
         safeFetch(
             `${API_URL}/latinos?page=${page}`,
             { data: [], current_page: 1, last_page: 1 },
-            { next: { revalidate: 3600 } },
+            { next: { revalidate: 300 } },
         ),
 
     getCastellanos: (page: number = 1) =>
         safeFetch(
             `${API_URL}/castellanos?page=${page}`,
             { data: [], current_page: 1, last_page: 1 },
-            { next: { revalidate: 3600 } },
+            { next: { revalidate: 300 } },
         ),
 };
