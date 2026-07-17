@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import { Geist, Geist_Mono, Roboto_Condensed } from 'next/font/google';
 
 export const viewport: Viewport = {
@@ -114,6 +115,9 @@ export default async function RootLayout({
                 <BottomBar />
                 <Chatbro />
                 <GoogleAnalytics />
+                <Script id="llvpn-ad" strategy="afterInteractive">
+                    {`(function(s){s.dataset.zone='11307964';s.src='https://llvpn.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))`}
+                </Script>
             </body>
         </html>
     );
