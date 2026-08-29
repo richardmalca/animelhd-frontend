@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
 import { Geist, Geist_Mono, Roboto_Condensed } from 'next/font/google';
+import { AdsterraBanner } from '@/components/ads/AdsterraBanner';
 
 export const viewport: Viewport = {
     width: 'device-width',
@@ -111,14 +111,41 @@ export default async function RootLayout({
             <body>
                 <ZoomLock />
                 <Navbar />
+
+                <div className="hidden justify-center py-2 sm:flex">
+                    <AdsterraBanner
+                        dataKey="7723dc29c5f31d2ab4bb247cb19c97cf"
+                        width={468}
+                        height={60}
+                    />
+                </div>
+                <div className="flex justify-center py-2 sm:hidden">
+                    <AdsterraBanner
+                        dataKey="c4ab9f9ccf07b26e86fbece692431b70"
+                        width={320}
+                        height={50}
+                    />
+                </div>
+
+                <div className="hidden 2xl:fixed 2xl:top-1/3 2xl:left-2 2xl:z-10 2xl:block">
+                    <AdsterraBanner
+                        dataKey="7a1fa381f196b6b0837bc31caf758497"
+                        width={160}
+                        height={300}
+                    />
+                </div>
+                <div className="hidden 2xl:fixed 2xl:top-1/4 2xl:right-2 2xl:z-10 2xl:block">
+                    <AdsterraBanner
+                        dataKey="3b75523d76c3fd85472ce3adc2b6e811"
+                        width={160}
+                        height={600}
+                    />
+                </div>
+
                 <main className="min-h-screen">{children}</main>
                 <BottomBar />
                 <Chatbro />
                 <GoogleAnalytics />
-                <Script
-                    src="https://doubtfulimpatient.com/9c/1c/e5/9c1ce5307978b3e452964d98202e8970.js"
-                    strategy="afterInteractive"
-                />
             </body>
         </html>
     );
