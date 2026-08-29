@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
 import { Geist, Geist_Mono, Roboto_Condensed } from 'next/font/google';
 
 export const viewport: Viewport = {
@@ -115,10 +114,6 @@ export default async function RootLayout({
                 <BottomBar />
                 <Chatbro />
                 <GoogleAnalytics />
-                <Script
-                    src="https://doubtfulimpatient.com/9c/1c/e5/9c1ce5307978b3e452964d98202e8970.js"
-                    strategy="afterInteractive"
-                />
             </body>
         </html>
     );
