@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Clock, Sparkles } from 'lucide-react';
 import { getTmdbImageUrl } from '@/lib/tmdb';
 import { getAnimeTypeLabel } from '@/lib/anime-utils';
+import { AdsterraRectangle } from '@/components/ads/AdsterraRectangle';
 
 interface AnimeRelation {
     id: number;
@@ -26,6 +27,8 @@ interface AnimeSidebarProps {
 export function AnimeSidebar({ relations }: AnimeSidebarProps) {
     return (
         <div className="flex flex-col gap-12">
+            <AdsterraRectangle />
+
             <section>
                 <div className="mb-6 pb-2">
                     <h2 className="text-sm font-bold text-foreground uppercase tracking-normal">

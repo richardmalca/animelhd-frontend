@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Search } from 'lucide-react';
 
 import { Episode } from '@/types/anime';
+import { AdsterraRectangle } from '@/components/ads/AdsterraRectangle';
 
 interface EpisodeSidebarProps {
     episodes: Episode[];
@@ -32,6 +33,8 @@ export function EpisodeSidebar({
 
     return (
         <div className="flex flex-col gap-6">
+            <AdsterraRectangle />
+
             <div className="flex flex-col">
                 <div className="mb-6 pb-2">
                     <h2 className="text-sm font-bold tracking-normal text-foreground uppercase">

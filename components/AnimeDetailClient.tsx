@@ -7,6 +7,7 @@ import { useAnimeDetail } from '@/hooks/use-anime-detail';
 import { AnimeBanner } from './anime/AnimeBanner';
 import { EpisodeSelector } from './anime/EpisodeSelector';
 import { AnimeSidebar } from './anime/AnimeSidebar';
+import { InContentBanner } from './ads/InContentBanner';
 import { getTmdbImageUrl } from '@/lib/tmdb';
 import { getAnimeTypeStyles, getAnimeTypeLabel } from '@/lib/anime-utils';
 
@@ -150,6 +151,8 @@ export function AnimeDetailClient({
                         </div>
                     </div>
                 </div>
+
+                <InContentBanner className="mt-8" />
 
                 <div className="mt-8 grid grid-cols-1 gap-12 lg:grid-cols-12">
                     <div className="lg:col-span-8">
