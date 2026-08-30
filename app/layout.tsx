@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono, Roboto_Condensed } from 'next/font/google';
+import { AdsterraBanner } from '@/components/ads/AdsterraBanner';
 
 export const viewport: Viewport = {
     width: 'device-width',
@@ -110,6 +111,22 @@ export default async function RootLayout({
             <body>
                 <ZoomLock />
                 <Navbar />
+                <div className="hidden justify-center lg:flex">
+                    <AdsterraBanner
+                        dataKey="134fa3f5d54c3691f4ade42c61f9e0f9"
+                        width={728}
+                        height={90}
+                        className="mt-14 -mb-16"
+                    />
+                </div>
+                <div className="flex justify-center overflow-hidden lg:hidden">
+                    <AdsterraBanner
+                        dataKey="30974467"
+                        width={468}
+                        height={60}
+                        className="mt-14 -mb-16"
+                    />
+                </div>
                 <main className="min-h-screen">{children}</main>
                 <BottomBar />
                 <Chatbro />
