@@ -116,7 +116,7 @@ export default async function RootLayout({
                         dataKey="134fa3f5d54c3691f4ade42c61f9e0f9"
                         width={728}
                         height={90}
-                        className="mt-14 -mb-16"
+                        className="mt-20 -mb-16"
                     />
                 </div>
                 <div className="flex justify-center overflow-hidden lg:hidden">
@@ -124,7 +124,7 @@ export default async function RootLayout({
                         dataKey="7723dc29c5f31d2ab4bb247cb19c97cf"
                         width={468}
                         height={60}
-                        className="mt-14 -mb-16"
+                        className="mt-20 -mb-16"
                     />
                 </div>
                 <main className="min-h-screen">{children}</main>

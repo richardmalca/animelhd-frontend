@@ -16,7 +16,7 @@ export function AdsterraBanner({
     className,
 }: AdsterraBannerProps) {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [filled, setFilled] = useState<boolean | null>(null);
+    const [filled, setFilled] = useState(false);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -62,8 +62,6 @@ export function AdsterraBanner({
             container.removeChild(iframe);
         };
     }, [dataKey, width, height]);
-
-    if (filled === false) return null;
 
     return (
         <div className={className}>
