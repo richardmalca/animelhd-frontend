@@ -121,9 +121,9 @@ export default async function RootLayout({
                 </div>
                 <div className="flex justify-center overflow-hidden lg:hidden">
                     <AdsterraBanner
-                        dataKey="7723dc29c5f31d2ab4bb247cb19c97cf"
-                        width={468}
-                        height={60}
+                        dataKey="c4ab9f9ccf07b26e86fbece692431b70"
+                        width={320}
+                        height={50}
                         className="mt-20 -mb-16"
                     />
                 </div>
