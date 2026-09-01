@@ -67,11 +67,11 @@ export function AdsterraBanner({
     return (
         <div className={className}>
             <div
-                className="relative overflow-hidden rounded-lg border border-white/10 bg-white/5"
+                className="relative overflow-hidden rounded-lg border-2 border-white/30 bg-white/10"
                 style={{ width, height }}
             >
                 {!filled && (
-                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center text-sm font-bold tracking-wide text-white/20 select-none">
+                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center text-sm font-bold tracking-wide text-white/50 select-none">
                         {width}x{height}
                     </span>
                 )}
