@@ -29,6 +29,7 @@ export function AdsterraBanner({
         iframe.title = 'banner';
         iframe.style.border = 'none';
         iframe.style.display = 'block';
+        iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin');
         iframe.srcdoc = `<!DOCTYPE html><html><head><style>body{margin:0;padding:0;overflow:hidden;}</style></head><body>
 <script>
   atOptions = {
