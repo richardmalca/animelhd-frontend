@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface AdsterraBannerProps {
     dataKey: string;
@@ -16,7 +16,6 @@ export function AdsterraBanner({
     className,
 }: AdsterraBannerProps) {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [filled, setFilled] = useState(false);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -45,38 +44,14 @@ export function AdsterraBanner({
 
         container.appendChild(iframe);
 
-        const checkTimer = setTimeout(() => {
-            try {
-                const doc = iframe.contentDocument;
-                const innerIframe = doc?.querySelector('iframe');
-                const hasCreative = Boolean(
-                    innerIframe?.src && innerIframe.src !== 'about:blank',
-                );
-                setFilled(hasCreative);
-            } catch {
-                setFilled(false);
-            }
-        }, 2500);
-
         return () => {
-            clearTimeout(checkTimer);
             container.removeChild(iframe);
         };
     }, [dataKey, width, height]);
 
     return (
         <div className={className}>
-            <div
-                className="relative overflow-hidden rounded-lg border-2 border-white/30 bg-white/10"
-                style={{ width, height }}
-            >
-                {!filled && (
-                    <span className="pointer-events-none absolute inset-0 flex items-center justify-center text-sm font-bold tracking-wide text-white/50 select-none">
-                        {width}x{height}
-                    </span>
-                )}
-                <div ref={containerRef} style={{ width, height }} />
-            </div>
+            <div ref={containerRef} style={{ width, height }} />
         </div>
     );
 }
